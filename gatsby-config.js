@@ -13,8 +13,7 @@ module.exports = {
     siteUrl: `https://petification.github.io/diary`,
     siteDescription: `Logs and records while developing Petification`,
     siteLanguage: `en`,
-    siteImage: `/banner.jpg`,
-    author: `@lekoarts_de`,
+    author: `petification`,
   },
   plugins: [
     {
@@ -63,7 +62,7 @@ module.exports = {
         name: `Petification`,
         short_name: `Petification`,
         description: `Logs and records while developing Petification`,
-        start_url: `/diary`,
+        start_url: `/`,
         background_color: `#fff`,
         // This will impact how browsers show your PWA/website
         // https://css-tricks.com/meta-theme-color-and-trickery/
