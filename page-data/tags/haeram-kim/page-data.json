@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---node-modules-lekoarts-gatsby-theme-minimal-blog-core-src-templates-tag-query-tsx",
+    "path": "/tags/haeram-kim",
+    "result": {"data":{"allPost":{"nodes":[{"slug":"/setting-up-diary-by-gatsby-js","title":"Setting up diary by gatsby.js","date":"06.01.2022","excerpt":"Make repository for Petification diary To make github ID's main website, you have to make repository named  {owner/organization name}.github…","timeToRead":1,"description":null,"tags":[{"name":"HaeramKim","slug":"haeram-kim"}]}]}},"pageContext":{"slug":"haeram-kim","name":"HaeramKim","formatString":"DD.MM.YYYY"}},
+    "staticQueryHashes": ["2744905544","3090400250","318001574"]}
