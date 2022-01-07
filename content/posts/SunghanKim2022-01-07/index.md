@@ -1,5 +1,5 @@
 ---
-title: "West Lafayette에서의 첫 째주"
+title: "First Week in West Lafayette"
 date: "2022-01-07"
 tags:
   - "SunghanKim"
