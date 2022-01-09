@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---node-modules-lekoarts-gatsby-theme-minimal-blog-core-src-templates-tag-query-tsx",
+    "path": "/tags/dukho-choi",
+    "result": {"data":{"allPost":{"nodes":[{"slug":"/mall","title":"MALL","date":"08.01.2022","excerpt":"(토) 오늘은 늦잠을 잤다. 사실 어제밤에 동헌이형이랑 가서 스쿼시 하기로 했는데, 일어나보니까 졸려서 더 잤다. 해람이랑 혜종이랑 성한이형이랑 셋이서 cordova recreation center…","timeToRead":1,"description":null,"tags":[{"name":"DukhoChoi","slug":"dukho-choi"}]}]}},"pageContext":{"slug":"dukho-choi","name":"DukhoChoi","formatString":"DD.MM.YYYY"}},
+    "staticQueryHashes": ["2744905544","3090400250","318001574"]}
