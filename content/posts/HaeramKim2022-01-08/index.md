@@ -4,6 +4,7 @@ date: "2022-01-08"
 tags:
 - "HaeramKim"
 ---
+> NOTE: this notes are from “Build Your Own IoT Platform” by Anand Tamboli. And I can’t speak english very well, so some sentences or word might be inappropriate and might have some misunderstandings.
 
 ## Reason for doing this
 * There are several reasons for making your own IoT platform
