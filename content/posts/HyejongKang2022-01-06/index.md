@@ -1,9 +1,8 @@
 ---
-title: ""
+title: "Diary for Jan 6"
 date: "2022-01-06"
 tags:
 - "HyejongKang"
-
 ---
 
 아침  먹고 K SQ 출발 
