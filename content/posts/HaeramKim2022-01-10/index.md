@@ -11,7 +11,8 @@ tags:
 * **IoT Solution**: It means overall system that covers physical things to end user application.
 > IoT solution usually means an end-to-end product, service, or a mix of both.  
 * **IoT Application**: It means software that is connected to an user and interact with them.
-> IoT application usually refers to IT software or a mobile application, or a combination of both.     
+> IoT application usually refers to IT software or a mobile application, or a combination of both.   
+   
 	* So we can think IoT Application as a kind of subset of IoT Solution.
 * **IoT Platform**: We can think that that as a system that connects physical object with application.
 > it sits on the edge of IoT applications and is usually a borderline system to deal with physical objects—a.k.a. things and software systems.   
@@ -21,7 +22,8 @@ tags:
 	* Part of a device that collects data is called _Sensor_. Thus, we can think that sensor is the input for an IoT Solution. Sensors are _connected_ to the device in the past, but modern IoT devices usually _integrates_ them.
 	* And part of a device that does some actions is called _Actuator_. So, we can think that actuator is the output for an IoT Solution.
 * **Gateway**: Purpose of gateways is usually to communicate with upstream layers.
-> _Gateways_are edge devices that can communicate with the upstream system in one of two ways: with or without a gateway.     
+> _Gateways_are edge devices that can communicate with the upstream system in one of two ways: with or without a gateway.   
+   
 	* Thinking of that, the term _Upstream_ and _Downstream_ might be confusing a little bit. _Upstream layer(system)_ usually means server of IoT Solutions and _Downstream layer(devices)_ usually means device(things). So it can be said that device pushes data they collected to _upstream layer_ and server controls _downstream device_ to do some actions.
 	* Some devices are able to communicate with upstream layer via Internet Protocol(IP) by itself. But not all devices has to be like that: you can organize devices communicate with gateways via another protocol like Bluetooth, and then let that gateway communicates with upstream layer.
 	* In addition to the communication, some gateways are able to perform some computing stuff such as, data segregation, clean up, and so on.
