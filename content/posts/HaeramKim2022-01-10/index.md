@@ -12,8 +12,7 @@ tags:
 > IoT solution usually means an end-to-end product, service, or a mix of both.  
 * **IoT Application**: It means software that is connected to an user and interact with them.
 > IoT application usually refers to IT software or a mobile application, or a combination of both.   
-   
-	* So we can think IoT Application as a kind of subset of IoT Solution.
+* So we can think IoT Application as a kind of subset of IoT Solution.
 * **IoT Platform**: We can think that that as a system that connects physical object with application.
 > it sits on the edge of IoT applications and is usually a borderline system to deal with physical objects—a.k.a. things and software systems.   
 ### The functional blocks of an IoT Solution
@@ -24,13 +23,13 @@ tags:
 * **Gateway**: Purpose of gateways is usually to communicate with upstream layers.
 > _Gateways_are edge devices that can communicate with the upstream system in one of two ways: with or without a gateway.   
    
-	* Thinking of that, the term _Upstream_ and _Downstream_ might be confusing a little bit. _Upstream layer(system)_ usually means server of IoT Solutions and _Downstream layer(devices)_ usually means device(things). So it can be said that device pushes data they collected to _upstream layer_ and server controls _downstream device_ to do some actions.
-	* Some devices are able to communicate with upstream layer via Internet Protocol(IP) by itself. But not all devices has to be like that: you can organize devices communicate with gateways via another protocol like Bluetooth, and then let that gateway communicates with upstream layer.
-	* In addition to the communication, some gateways are able to perform some computing stuff such as, data segregation, clean up, and so on.
+* Thinking of that, the term _Upstream_ and _Downstream_ might be confusing a little bit. _Upstream layer(system)_ usually means server of IoT Solutions and _Downstream layer(devices)_ usually means device(things). So it can be said that device pushes data they collected to _upstream layer_ and server controls _downstream device_ to do some actions.
+* Some devices are able to communicate with upstream layer via Internet Protocol(IP) by itself. But not all devices has to be like that: you can organize devices communicate with gateways via another protocol like Bluetooth, and then let that gateway communicates with upstream layer.
+* In addition to the communication, some gateways are able to perform some computing stuff such as, data segregation, clean up, and so on.
 * **IoT Platform**: The main feature for the IoT Platform is _orchestrator of the IoT Solution_. They are responsible for ingesting data from IoT device at a very high speed and for storing that data in a time series with structured format to process and analyze.
 > This block is responsible for communicating with downstream devices and ingesting large amounts of data at a very high speed. The platform is also responsible for storage of the data in a time series and structured format for further processing and analysis.   
 * **Application**: The main purpose for application is to provide user an interface to manage IoT Solution (This is why they call it _Dashboard_). Usually it’s implemented with GUI, and runs on desktop, mobile, or both. Thus, they have to request some data (like status) to platform to show user an information.
-	* Additionally, these applications sometimes communicates with other applications on interface-level and integrates data.
+* Additionally, these applications sometimes communicates with other applications on interface-level and integrates data.
 > Additionally, these applications integrate with other systems and applications at the interface level and enable interapplication data exchange.  
 - - - -
 ## The Detailed Explanation for the Element of IoT Platform
