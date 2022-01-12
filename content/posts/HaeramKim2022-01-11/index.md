@@ -1,8 +1,9 @@
 ---
-title: "Building our own IoT platform (3)"
+title: "Chapter 3 & 4. Detailed Explanation for Broker, DB, API"
 date: "2022-01-11"
 tags:
 - "HaeramKim"
+- "BuildYourOwnIoTPlatform"
 ---
 > NOTE: this notes are from “Build Your Own IoT Platform” by Anand Tamboli. And I can’t speak english very well, so some sentences or word might be inappropriate and might have some misunderstandings.  
 

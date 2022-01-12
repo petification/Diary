@@ -1,8 +1,9 @@
 ---
-title: "Building our own IoT platform (2)"
+title: "Chapter 2. Components for IoT Solution"
 date: "2022-01-10"
 tags:
 - "HaeramKim"
+- "BuildYourOwnIoTPlatform"
 ---
 > NOTE: this notes are from “Build Your Own IoT Platform” by Anand Tamboli. And I can’t speak english very well, so some sentences or word might be inappropriate and might have some misunderstandings.  
 
