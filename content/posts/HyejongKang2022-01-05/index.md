@@ -2,7 +2,7 @@
 title: "First Diary"        
 date: "2022-01-05"      
 tags:
-    - "Hyejong Kang"
+- "HyejongKang"
 ---
 
 지금까지 5일동안 먹은 음식들이 맛있지만 대체로 너무 짜서 힘들었다. 
