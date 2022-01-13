@@ -5,6 +5,8 @@ tags:
 - "HaeramKim"
 - "BuildYourOwnIoTPlatform"
 ---
+> NOTE: this notes are from “Build Your Own IoT Platform” by Anand Tamboli. And I can’t speak english very well, so some sentences or word might be inappropriate and might have some misunderstandings.  
+
 ## Setting Dev-environment
 * Register & make instance @ DigitalOcean
 	* Ubuntu

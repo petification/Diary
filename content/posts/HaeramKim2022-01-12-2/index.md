@@ -5,6 +5,8 @@ tags:
 - "HaeramKim"
 - "BuildYourOwnIoTPlatform"
 ---
+> NOTE: this notes are from “Build Your Own IoT Platform” by Anand Tamboli. And I can’t speak english very well, so some sentences or word might be inappropriate and might have some misunderstandings.  
+
 ## Pub-Sub Paradigm
 * **Publishing** is similar with _Sending_. In other words, _Publishing some data_ means _Sending some data_. Thus, **Publisher** is same with _sending client_.
 * **Subscribing** is similar with _Receiving_. That is, _Subscribing some data_ has the same meaning with _Receiving some data_. Thus, **Subscriber** is the _client who receives some data_.
