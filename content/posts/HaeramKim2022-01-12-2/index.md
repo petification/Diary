@@ -51,3 +51,40 @@ tags:
 #### Cons
 * When number of clients is increased, then communication rate will increased parabolically.
 	* For example, when 2 clients are attached to broker, and all of the clients subscribes all of the topic, then when one client publishes data, two data tranfer will happen (Client1 -> Broker, Broker -> Client 2) and vice versa. So, total number of transfer is 4.
+- - - -
+## Installing Message Broker
+* Installing Eclipse/Mosquitto
+```
+apt update
+apt install mosquitto mosquitto-clients
+```
+* Mosquitto runs on port `1883`
+* You can subscribe topic via:
+```
+mosquitto_sub -h <hostname> -t <topicname>
+```
+* And also, you can  publish message of topic via:
+```
+mosquitto_pub -h <hostname> -t <topicname> -m <message>
+```
+* You can set password for mosquitto:
+```
+mosquitto_passwd -c /etc/mosquitto/passwd <username>
+```
+	* And then, you have to add contents below to mosquitto configuration file.
+	* Path for file is `/etc/mosquitto/conf.d/broker.conf`
+```
+allow_anonymous false
+password_file /etc/mosquitto/passwd
+```
+* After securing mosquitto, port `8883` is opened for authorised connection.
+* More configuration about logging & certification is available in [Here](https://github.com/petification/configs).
+* Start mosquitto
+```
+mosquitto -c /etc/mosquitto/conf.d/broker.conf -v >
+mosquitto.log &
+```
+* You can see a live-logs via:
+```
+tail -f mosquitto.log
+```
