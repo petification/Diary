@@ -139,3 +139,13 @@ msg.topic =
 return msg;
 ```
 * `mysql`, `function`, `http response` node: No configuration required.
+- - - -
+## Auto-restart NodeRED on failure
+* It can be accomplished with `forever` package. It’s available in NPM.
+```
+npm install -g forever
+```
+* After installing, you can start NodeRED by:
+```
+forever start -l node-red.log --append /usr/local/bin/node-red
+```
