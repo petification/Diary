@@ -1,5 +1,5 @@
 ---
-title: "Chapter 8. Integrating WebSocket to MQTT"
+title: "Chapter 8. Advancing MQTT Broker"
 date: "2022-01-18"
 tags:
 - "HaeramKim"
