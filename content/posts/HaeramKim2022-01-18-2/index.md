@@ -1,5 +1,5 @@
 ---
-title: "Chapter 8. Advancing MQTT Broker"
+title: "Chapter 9. Creating ReST Interface"
 date: "2022-01-18"
 tags:
 - "HaeramKim"
@@ -7,111 +7,96 @@ tags:
 ---
 > NOTE: this notes are from “Build Your Own IoT Platform” by Anand Tamboli. And I can’t speak english very well, so some sentences or word might be inappropriate and might have some misunderstandings.  
 
-## Benefits for WebSocket
-### Difference between them
-* The Perspective that both protocol supports duplex communications is one common factor, but there’s some differences between them.
-* The Purpose of WebSocket is to communicate with server / clients in duplex and live way. But purpose for MQTT is to supprort publish - subscribe model. So, We can tell that WebSocket has more general purpose.
-* WebSocket is usually used in WWW (World Wide Web). But, MQTT isn’t common protocol for that.
-### Reason for using WebSocket with MQTT
-* MQTT’s ability to communicate with duplex way can be achieved with WebSocket. 
-* With WebSocket, we can organize web application to publish or subscribe topic with the help of MQTT.
+## Make “ReST/GET Records Based on Condition” Funtionality
+* It’s simple; Fetch some records by `topic-like`, `payload-like`, `count`.
+![](index/Screen%20Shot%202022-01-17%20at%209.37.19%20AM.png)
+* `HTTP in` node: Set method as `GET` and URL as `/records/topic-like/:topic/payload-like/:payload/last/:count`.
+* `function` node:
+```
+// Create query
+
+// if no authentication filter defined or available
+// set the default value as 1
+if(!msg.req.authFilter)
+    msg.req.authFilter = 1;
+
+// wildcard used for API query is * and this needs to be converted into SQL wildcard character %
+msg.topic = "SELECT id,topic,payload,timestamp" +
+            " FROM thingsData WHERE" +
+            " topic LIKE '" + msg.req.params.topic.
+            replace(/\*/g, "%") + "'" +
+            " AND" +
+            " payload LIKE '" + msg.req.params.payload.
+            replace(/\*/g, "%") + "'" +
+            " AND deleted=0" +
+            " AND (" + msg.req.authFilter + ")" +
+            " ORDER BY ID DESC" +
+            " LIMIT " + msg.req.params.count + ";";
+
+return msg;
+```
+	* Note that we set default of `authFilter` to 1. It means we’re gonna allow all un-authorized user for now.
+		* Check `" AND (" + msg.req.authFilter + ")" +` part: If `authFilter` is 1, this means `true`, so this query will works normally, but if it’s 0, this means `false`, so this query will fetch nothing.
 - - - -
-## Configuration for MQTT to use WebSocket
-* We have to configure mosquitto config file to use port 8443 as secured websocket.
-* Add the content below to Mosquitto configuration file.
-```
-# listen on secure websocket
-#   We're gonna use port 8433 for secure websocket communication
-listener 8443
-protocol websockets
-
-#   Path for certification files
-certfile /etc/letsencrypt/live/<your-domain>/cert.pem
-cafile /etc/letsencrypt/live/<your-domain>/fullchain.pem
-keyfile /etc/letsencrypt/live/<your-domain>/privkey.pem
-require_certificate false
-tls_version tlsv1.2
-```
+## Deleting from DB
+* Note that all the APIs has same structure and procedure; all the differences between them are just ReST API endpoints and DB query.
+* There are two ways to accomplish this: _Recoverable_ and _Permanent_.
+### Recoverable Deletation
+![](index/Screen%20Shot%202022-01-17%20at%2011.14.24%20PM.png)
+* Recoverable deletation is just updating value of `deleted` column to 1.
+* Since this is just a updating the DB, so i think it’s better to use `PATCH` HTTP method instead of `GET` method.
+### Permanent Deletation
+![](index/Screen%20Shot%202022-01-18%20at%203.55.06%20PM.png)
+* Permanent deletation is deleting the instance inside of DB.
+* Unlike _Recoverable Deletation_, i’m decide to use `DELETE` HTTP method to do it.
 - - - -
-## Securing broker with ACL
-* **ACL** is a acronym for “Access Control List”.
-* This improves security for broker because it helps managing user accessibility.
-> However, this does not prevent legitimate users from snooping around in each other’s data. Moreover, anyone can publish or receive anything, which is rather unacceptable.   
-* To enable ACL, first thing to do is specify path of ACL configuration file to `broker.conf`
+## Microservice Utilities
+![](index/Screen%20Shot%202022-01-18%20at%2010.46.59%20PM.png)
+### ReST/GET Current Timetamp
+* This functionality coordinates with **M2** API.
+* Set ReST Endpoint to `/timestamp`, method to `GET`.
+* And set `function` node to:
 ```
-# Add this line to broker.conf
-acl_file /etc/mosquitto/conf.d/broker.acl
+msg.payload = {
+    timestamp: (new Date()).getTime().toString()
+};
+return msg;
 ```
-* And add content below to `broker.acl`.
+### ReST/GET Random Code
+* This functionality coordinates with **M3** API.
+* Set ReST Endpoint to `/randomcode/:len`, method to `GET`.
+	* `:len` represents length of the random code.
+* And set `function` node to:
 ```
-# GENERAL
-topic read timestamp/#
+var randomString = function(length) {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    for(var i = 0; i < length; i++) {
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return text;
+}
 
-# USERS
-user <Administrator-username>
-topic readwrite #
+msg.payload = {
+    code: randomString(msg.req.params.len)
+};
 
-# APPLICATION AS A USER
-user <Application-username>
-topic read timestamp/#
-topic readwrite <topic-name>/%c/#
+return msg;
+```
+### ReST/GET UUID
+* This functionality coordinates with **M4** API.
+* For this functionality, we have to install `node-red-contrib-uuid` plugin to generate UUID.
+* After that, all we have to do is just pass the generated UUID to HTTP response.
+* So, set ReST Endpoint to `/uuid`, method to `GET`.
+* And set `function` node to:
+```
+// Prepare response
+msg.payload = {
+    uuid: msg.payload
+};
 
-# PATTERNS
-topic read timestamp/#
-pattern readwrite users/%u/#
-pattern write %c/up/#
-pattern read %c/dn/#
+return msg;
 ```
-	* Here’s detailed explanation for it:
-### GENERAL
-```
-topic read timestamp/#
-```
-* Allow anonymous user to subscribe timestamp and its subtopic.
-* But as we prohibited anonymous user from accessing broker, this option will never used.
-### USERS
-```
-user <Administrator-username>
-topic readwrite #
-```
-* Allow administrator to publish or subscribe any topic
-### APPLICATION AS A USER
-```
-user <Application-username>
-topic read timestamp/#
-topic readwrite <topic-name>/%c/#
-```
-* Allow user to publish or subscribe for given topic and subtopic that is named Client_ID
-* For example, when username `a` connects with Client_ID `aa` and <topic-name> is `testTopic`, user `a` will have permission to publish or subscribe for topic `testTopic/aa/#` (note that # means all).
-### PATTERNS
-```
-pattern readwrite users/%u/#
-```
-* Allow user that is not specified above to pub-sub only for username/Client_ID specific topic.
-* Pattern below is to enable user to pub-sub username specific topic.
-* For example, When user with username `a` connects to broker, that guy will have pub-sub permission to topic `users/a/#`.
-```
-pattern write %c/up/#
-pattern read %c/dn/#
-```
-* Pattern below is to enable user to pub-sub Client_ID specific topic.
-* For example, When user uses Client_ID `aa`, that guy will have publish permission to topic `aa/up/#`and subscribe permission to topic `aa/dn/#`.
-### ACL Priority
-* **GENERAL** Setting has a top-priority, but we’ve blocked all the anonymous user so broker will ignore it.
-* **PATTERN** Setting overrides **USER** Setting; So, if PATTERN Setting is configured, broker will allow user regardless of USER Setting.
-* Thus, the following scenarios could occur.
-1. Scenario 1
-	* General settings = blank or configured 
-	* User settings = blank 
-	* Pattern settings = blank 
-	* The result is access to all topics denied. 
-2. Scenario 2 
-	* General settings = blank or configured 
-	* User settings = configured 
-	* Pattern settings = blank 
-	* The result depends on the user settings; the broker ignores general settings. 
-3. Scenario 3 
-	* General settings = blank or configured 
-	* User settings = blank or configured 
-	* Pattern settings = configured 
-	* The result is pattern settings override user settings. 
+### And other…
+* To implement **M5**, **M6** API, we need to use [SendGrid](https://sendgrid.com) and [Twilio](https://www.twilio.com).
+* But to use both of ‘em, we have to pay some money. So, let’s skip these for now.
