@@ -35,8 +35,8 @@ msg.topic = "SELECT id,topic,payload,timestamp" +
 
 return msg;
 ```
-	* Note that we set default of `authFilter` to 1. It means we’re gonna allow all un-authorized user for now.
-		* Check `" AND (" + msg.req.authFilter + ")" +` part: If `authFilter` is 1, this means `true`, so this query will works normally, but if it’s 0, this means `false`, so this query will fetch nothing.
+* Note that we set default of `authFilter` to 1. It means we’re gonna allow all un-authorized user for now.
+* Check `" AND (" + msg.req.authFilter + ")" +` part: If `authFilter` is 1, this means `true`, so this query will works normally, but if it’s 0, this means `false`, so this query will fetch nothing.
 - - - -
 ## Deleting from DB
 * Note that all the APIs has same structure and procedure; all the differences between them are just ReST API endpoints and DB query.
