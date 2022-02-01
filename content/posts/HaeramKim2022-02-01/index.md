@@ -27,7 +27,6 @@ S. Gruener, H. Koziolek and J. Rückert, "Towards Resilient IoT Messaging: An Ex
 1. QoS 0 / TCP Retransmission only
 	* Application Layer에서의 Reliability checking없이 TCP에서의 그것에만 의존했을때 누락률
 2. QoS 1 / TCP / PUBACK
-![](index/Screen%20Shot%202022-01-30%20at%202.30.49%20PM.png)
 	* QoS 1에서의 PUBACK를 사용했을 때와
 	* QoS 2에서의 PUBREC, PUBREL, PUBCOPM를 사용했을 때의 누락률
 3. QoS 1 / TCP / PUBACK / Persistence
@@ -47,27 +46,23 @@ S. Gruener, H. Koziolek and J. Rückert, "Towards Resilient IoT Messaging: An Ex
 	* 하지만 당연히 두개의 Message Queue를 동기화시켜야되기 때문에 어느정도의 Latency는 발생할 수 밖에 없게 된다
 * 하지만 _우리의 시스템에서는 Clustered Broker를 사용하지 않을 것이기 때문에 4, 5번에 대한 실험은 읽지 않음_
 ### Experiment
-![](index/Screen%20Shot%202022-01-30%20at%202.47.58%20PM.png)
 ### Testing Result
 1. Variant 0, 1 - Comparison of QoS 0, 1, 2 with no additional features (like Persistence)
 	* 일단 이 실험은 Eclipse Mosquitto 를 Broker로 사용하여 실험했댄다
-![](index/Screen%20Shot%202022-01-30%20at%202.56.19%20PM.png)
 	* 보면 QoS 0도 25%의 데이터 유실률의 환경에서도 100%의 전송률을 보여주고 있는 것을 알 수 있다 - _TCP Retransmission으로도 상당히 Reliable한 통신_ 이 이루어지고 있는 셈
 	* 따라서 _그러한 환경이 아니라면, QoS 등급을 올려서 불필요한 Packet이 오가게 하는 것(**Extra Round Trip**)은 비효율적_ 일 수 있다
-![](index/Screen%20Shot%202022-01-30%20at%203.06.18%20PM.png)
 	* 그리고 위 그래프를 보면 QoS 1에서 Latency가 가끔씩 뻗는 것을 볼 수 있다
 	* 이건 왜냐하면 Message Frequency가 아주 높을 경우 Message들을 묶어서 전송하는 경우가 있기 때문인데, 묶어서 전송하다가 이놈이 유실되면 Retransmission에 걸리는 시간이 늘어나기 때문이다
 	* 따라서 네트워크 환경이 안좋다면 빠른 속도로 메세지를 보내다가는 가끔씩 Latency가 아주 길어지는 문제가 생기게 되니 지양하도록 하랜다
 2. Variant 2: Usefulness of Persistency Feature
 	* 실험은 다음과 같은 방식으로 진행됨
-		* Publisher 한개가 5000개의 메시지를 보내고 Subscriber 두개가 각각 수신함
-		* 2000번부터 2500까지는 Subscriber하나를 꺼서 그놈한테 보내져야 할 패킷들이 Persistency Database에 쌓이도록 함
-		* 2500번에 다다르면 Broker를 강제 재실행하고 꺼놨던 Subscriber를 킴
+    1. Publisher 한개가 5000개의 메시지를 보내고 Subscriber 두개가 각각 수신함
+	2. 2000번부터 2500까지는 Subscriber하나를 꺼서 그놈한테 보내져야 할 패킷들이 Persistency Database에 쌓이도록 함
+	3. 2500번에 다다르면 Broker를 강제 재실행하고 꺼놨던 Subscriber를 킴
 	* 그러면 다음과 같은 결과가 예상된다
-		* Subscriber 1은 모든 패킷을 다 받는다 - 대신, 2000부터 2500까지는 중복된 패킷이 수신될 수 있다
-		* Subscriber 2또한 모든 패킷을 다 받는다 - Broker가 Persistency Database에서 2000~2500에 해당하는 메세지를 복원하여 전송하기 때문
+	1. Subscriber 1은 모든 패킷을 다 받는다 - 대신, 2000부터 2500까지는 중복된 패킷이 수신될 수 있다
+	2. Subscriber 2또한 모든 패킷을 다 받는다 - Broker가 Persistency Database에서 2000~2500에 해당하는 메세지를 복원하여 전송하기 때문
 	* 이러한 방식으로 4개의 Broker를 테스트한다 - EMQ X EE(Enterprise Edition), HiveMQ, Mosquitto, VerneMQ
-![](index/Screen%20Shot%202022-01-30%20at%203.32.33%20PM.png)
 	* 그러면 위와 같은 결과를 받을 수 있다
 	* Single Broker체제에서 Persistency를 사용하는 경우에는 HiveMQ와 Mosquitto의 경우에 아주 훌륭한 결과가 나온다 - 메시지 유실과 순서 섞이는 문제가 일어날 확률이 0에 가깝고, 중복된 메시지가 수신될 확률도 아주 낮았음
 	* 따라서 _Message Frequency가 아주 높지 않고 30초 정도의 Broker Restart를 견딜 수 있는 환경이라면, Broker Clustering등의 복잡한 설정 없이 간편하게 하나의 Broker와 Persistence Setting만으로 Broker System을 구성하는 것이 현명하다_
