@@ -1,5 +1,5 @@
 {
     "componentChunkName": "component---node-modules-lekoarts-gatsby-theme-minimal-blog-core-src-templates-tags-query-tsx",
     "path": "/tags",
-    "result": {"data":{"allPost":{"group":[{"fieldValue":"BuildYourOwnIoTPlatform","totalCount":7},{"fieldValue":"DukhoChoi","totalCount":2},{"fieldValue":"HaeramKim","totalCount":12},{"fieldValue":"HyejongKang","totalCount":5},{"fieldValue":"IntroducingWirelessNetwork","totalCount":4},{"fieldValue":"SunghanKim","totalCount":1}]}},"pageContext":{}},
+    "result": {"data":{"allPost":{"group":[{"fieldValue":"BuildYourOwnIoTPlatform","totalCount":7},{"fieldValue":"DukhoChoi","totalCount":2},{"fieldValue":"HaeramKim","totalCount":13},{"fieldValue":"HyejongKang","totalCount":5},{"fieldValue":"IntroducingWirelessNetwork","totalCount":4},{"fieldValue":"Research","totalCount":1},{"fieldValue":"SunghanKim","totalCount":1}]}},"pageContext":{}},
     "staticQueryHashes": ["2744905544","3090400250","318001574"]}
