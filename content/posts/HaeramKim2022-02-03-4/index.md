@@ -31,9 +31,9 @@ Tessema Gelila Berhan, Worku Toyiba Ahemed, Tessema Zelalem Birhan, “Programma
 * 얘네들의 한계점
 > Programmable Pet Feeder only has 4 dispensers which means it can only serve 4 times and it requires the user to set the times at the device.  
 > Smart Pet Care System can be set with a smartphone but the user can’t see the record of the feeding process.   
-	* (1) 번은 Dispenser가 4개 있어서 4번밖에 사료를 주지 못함
-	* 또한, Food Feeder에 직접 시간을 입력해야됨 - Web Application을 통해 시간 설정하는 등의 편의성이 없더라
-	* (2) 번은 스카트폰을 통해 시간을 설정하는 것이 가능하지만 개가 얼마나 먹었는지 등의 확인은 못한다더라
+* (1) 번은 Dispenser가 4개 있어서 4번밖에 사료를 주지 못함
+* 또한, Food Feeder에 직접 시간을 입력해야됨 - Web Application을 통해 시간 설정하는 등의 편의성이 없더라
+* (2) 번은 스카트폰을 통해 시간을 설정하는 것이 가능하지만 개가 얼마나 먹었는지 등의 확인은 못한다더라
 ### Architecture
 #### Device
 ![](index/Screen%20Shot%202022-02-03%20at%208.05.45%20PM.png)
