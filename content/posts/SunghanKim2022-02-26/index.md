@@ -1,5 +1,5 @@
 ---
-title: ""
+title: "Summarizing Purdue"
 date: "2022-02-26"
 tags:
   - "SunghanKim"
